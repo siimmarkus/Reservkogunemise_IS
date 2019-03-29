@@ -35,10 +35,14 @@ public class GUI {
 
 
 
-//Loon teise JPaneli
-        final JPanel comboPane2 = new JPanel();
-        comboPane2.add(new JLabel(new ImageIcon("C:\\Users\\Hain\\Documents\\Ulikool\\2. Semester\\OOP\\Rühmatöö\\src\\QR.png")));
+//Loon uue vaate, kus kuvatakse QR kood või tekst andmebaasis mitteeksisteerimisest
+        final JPanel tagasinNupp = new JPanel();
+        JButton tagasi = new JButton("Tagasi");
+        tagasinNupp.setVisible(false);
 
+        final JPanel qrKoodiPaneel = new JPanel();
+        qrKoodiPaneel.add(new JLabel(new ImageIcon("C:\\Users\\Hain\\Documents\\Ulikool\\2. Semester\\OOP\\oop-projekt\\src\\QR.png")));
+        qrKoodiPaneel.setVisible(false);
 
 
 //The ActionListener class is used to handle the
@@ -54,15 +58,17 @@ public class GUI {
 //the setVisible value of the listPanel and
 //comboPanel is switched from true to
 //value or vice versa.
-                comboPane2.setVisible(!comboPane2.isVisible());
+                qrKoodiPaneel.setVisible(!qrKoodiPaneel.isVisible());
                 comboPanel.setVisible(!comboPanel.isVisible());
+                tagasinNupp.setVisible(!comboPanel.isVisible());
             }
         });
 //The JFrame uses the BorderLayout layout manager.
 //Put the two JPanels and JButton in different areas.
         guiFrame.add(comboPanel, BorderLayout.NORTH);
-        guiFrame.add(comboPane2, BorderLayout.CENTER);
-        //guiFrame.add(vegFruitBut,BorderLayout.SOUTH);
+        guiFrame.add(qrKoodiPaneel, BorderLayout.CENTER);
+        guiFrame.add(tagasinNupp, BorderLayout.SOUTH);
+
 //make sure the JFrame is visible
         guiFrame.setVisible(true);
     }
