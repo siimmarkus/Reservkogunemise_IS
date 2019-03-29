@@ -41,7 +41,7 @@ public class GUI {
         tagasinNupp.setVisible(false);
 
         final JPanel qrKoodiPaneel = new JPanel();
-        qrKoodiPaneel.add(new JLabel(new ImageIcon("C:\\Users\\Hain\\Documents\\Ulikool\\2. Semester\\OOP\\oop-projekt\\src\\QR.png")));
+        qrKoodiPaneel.add(new JLabel(new ImageIcon("QR.png")));
         qrKoodiPaneel.setVisible(false);
 
 
