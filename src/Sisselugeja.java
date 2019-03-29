@@ -1,12 +1,12 @@
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Sisselugeja {
-    public static List<Isik> iskuteLugeja(String failinimi) throws FileNotFoundException {
+    public static List<Isik> iskuteLugeja(String failinimi) throws IOException {
         List<Isik> isikud = new ArrayList<>();
 
         try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
@@ -19,7 +19,7 @@ public class Sisselugeja {
         return isikud;
     }
 
-    public static List<Üksus> üksusteLugeja(String failinimi) throws FileNotFoundException {
+    public static List<Üksus> üksusteLugeja(String failinimi) throws IOException {
         List<Üksus> üksused = new ArrayList<>();
 
         try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
