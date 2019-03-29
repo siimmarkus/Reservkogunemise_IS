@@ -1,10 +1,20 @@
+import java.io.FileNotFoundException;
+import java.util.List;
+
 public class Peaklass {
 
-    public static void main(String[] args) {
-        GUI.main(new String[]{});
+    public static void main(String[] args) throws FileNotFoundException {
+        //GUI.main(new String[]{});
 
-        //Isik isik1 = new Isik("39906250288", "Robert", "Karp", 1, "kokatädi");
-        //System.out.println(isik1.toString());
+        List<Isik> isikud = Sisselugeja.iskuteLugeja("isikuandmed.txt");
+        List<Üksus> üksused = Sisselugeja.üksusteLugeja("üksused.txt");
+
+        for (Isik isik:isikud) {
+            System.out.println(isik.toString());
+        }
+        for (Üksus üksus : üksused) {
+            System.out.println(üksus.toString());
+        }
 
 
     }
