@@ -30,7 +30,7 @@ public class Peaklass {
             System.out.println("Väljuda programmist (3)");
             int valik = input.nextInt();
             switch (valik){
-                case 1:{
+                case 1:
                     System.out.println("Palun sisestage oma isikukood: ");
                     String isikukood = input.next();
                     System.out.println("sisestasite isikukoodi " + isikukood);
@@ -39,10 +39,13 @@ public class Peaklass {
                         System.out.println("Registreerisin isiku");
                     }
                     else System.out.println("Sisestatud isikukoodiga inimest ei leidu meie andmebaasis.");
-                }
+                    break;
+
                 case 2: // TODO: 29/03/2019 Väljasta registreerunud isikutega auranne ;
                     System.out.println("Säh sulle tabelit");
                 case 3: System.exit(0);
+                default:
+                    System.out.println("something broken");
             }
         }
 

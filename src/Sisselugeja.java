@@ -32,4 +32,22 @@ public class Sisselugeja {
         return üksused;
     }
 
+    public static List<Varustus> varustuseLugeja(String failinimi) throws IOException {
+        List<Varustus> varustus = new ArrayList<>();
+
+        try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
+            while (sc.hasNextLine()){
+                String[] rida = sc.nextLine().split(";");
+                int[] uusrida = new int[rida.length];
+                for (int i = 0; i < rida.length; i++) {
+                    uusrida[i] = Integer.parseInt(rida[i]);
+                }
+                varustus.add(new Varustus(uusrida[0],uusrida[1],uusrida[2],uusrida[3],uusrida[4],uusrida[5]));
+
+            }
+        }
+
+        return varustus;
+    }
+
 }
