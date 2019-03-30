@@ -1,6 +1,6 @@
 39609204221;Hain;Luud;22;Autojuht-Sidemees
 39102305432;Meelis;Raamat;21;Laskur
-38811130295;Kvaliteedimärgi;Ekspert;33;Tulejuht
-39512318574;Madis;Märter;12;Autojuht
-39910232391;Oskar;Pille;103;Kuulipildur
-38508172103;Andri;Julm;9;Kompanii Ülem
+38811130295;Kvaliteedimärgi;Ekspert;103;Tulejuht
+39512318574;Madis;Märter;44;Autojuht
+39910232391;Oskar;Pille;51;Kuulipildur
+38508172103;Andri;Julm;68;Kompanii Ülem

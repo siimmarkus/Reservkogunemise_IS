@@ -1,7 +1,7 @@
 public class Üksus {
     private int id;
     private String nimi;
-    private String kompanii;
+    private static String kompanii;
     private int pükse;
     private int särke;
     private int soblesid;

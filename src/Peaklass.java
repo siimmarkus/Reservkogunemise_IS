@@ -1,8 +1,24 @@
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class Peaklass {
+    private static List<Isik> isikuteAndmebaas;
+    private static List<Üksus> üksusteAndmebaas;
+    private static HashMap<String, String> hashÜksused;
+
+    public static List<Isik> getIsikuteAndmebaas() {
+        return isikuteAndmebaas;
+    }
+
+    public static List<Üksus> getÜksusteAndmebaas() {
+        return üksusteAndmebaas;
+    }
+
+    public static HashMap<String, String> getHashÜksused() {
+        return hashÜksused;
+    }
 
     //Tagastab true, kui antud idkoodiga isik on juba isikud listis.
     public static boolean kontrolliIsik(String idkood, List<Isik> isikud){
@@ -13,12 +29,18 @@ public class Peaklass {
         }
         return false;
     }
+    private static void looAndmebaasid() throws IOException {
+        isikuteAndmebaas = Sisselugeja.iskuteLugeja("isikuandmed.txt");
+        üksusteAndmebaas = Sisselugeja.üksusteAndmebaasiLugeja("üksused.txt");
+        hashÜksused = Sisselugeja.üksusteHashMapiLugeja("üksused.txt");
+
+    }
 
     public static void main(String[] args) throws IOException {
-        //Kutsub GUI välja
-        //GUI.main(new String[]{});
-        List<Isik> isikud = Sisselugeja.iskuteLugeja("isikuandmed.txt");
-        List<Üksus> üksused = Sisselugeja.üksusteLugeja("üksused.txt");
+        looAndmebaasid();
+        Aruanne.lisaInimene(new Isik("3902984829", "Brunhilde", "Jones", "22", "kapten"));
+        Aruanne.lisaInimene(new Isik("3902982821", "Aadam", "Kloun", "68", "auto"));
+        Aruanne.lisaInimene(new Isik("3902984232", "Kiire", "Auto", "68", "auto"));
 
 // Suhtlus kasutajaga terminali kaudu
         System.out.println("Teretulemast kasutama KV uut innovaatilist formeerumistarkvara.");
@@ -34,7 +56,7 @@ public class Peaklass {
                     System.out.println("Palun sisestage oma isikukood: ");
                     String isikukood = input.next();
                     System.out.println("sisestasite isikukoodi " + isikukood);
-                    if (kontrolliIsik(isikukood, isikud)){
+                    if (kontrolliIsik(isikukood, isikuteAndmebaas)){
                         // TODO: 29/03/2019 registreeri isik
                         System.out.println("Registreerisin isiku");
                     }
@@ -42,7 +64,9 @@ public class Peaklass {
                     break;
 
                 case 2: // TODO: 29/03/2019 Väljasta registreerunud isikutega auranne ;
+                    Aruanne.kirjutaAruanne();
                     System.out.println("Säh sulle tabelit");
+                    break;
                 case 3: System.exit(0);
                 default:
                     System.out.println("something broken");

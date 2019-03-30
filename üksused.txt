@@ -1,6 +1,6 @@
 21;1.Brigaad;Sidekompanii
 22;1.Brigaad;TTKo
-09;2.Brigaad;Luurekompanii
-103;2.Brigaad;Õhutõrje
-12;1.Brigaad;Lahingutoetus
-33;2.Brigaad;Jalavägi
+103;2.Brigaad;Luurekompanii
+44;2.Brigaad;Õhutõrje
+51;1.Brigaad;Lahingutoetus
+68;2.Brigaad;Jalavägi

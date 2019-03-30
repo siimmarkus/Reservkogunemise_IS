@@ -1,8 +1,8 @@
-public class Isik {
+public class Isik implements Comparable<Isik> {
     private String isikukood;
     private String e_nimi;
     private String p_nimi;
-    private int üksus;
+    private String üksus;
     private String amet;
 
     private int pükse;
@@ -11,7 +11,7 @@ public class Isik {
     private int ferntšisid;
     private int magamiskotte;
 
-    public Isik(String isikukood, java.lang.String e_nimi, java.lang.String p_nimi, int üksus, java.lang.String amet) {
+    public Isik(String isikukood, java.lang.String e_nimi, java.lang.String p_nimi, String üksus, java.lang.String amet) {
         this.isikukood = isikukood;
         this.e_nimi = e_nimi;
         this.p_nimi = p_nimi;
@@ -37,7 +37,7 @@ public class Isik {
         return p_nimi;
     }
 
-    public int getÜksus() {
+    public String getÜksus() {
         return üksus;
     }
 
@@ -57,7 +57,7 @@ public class Isik {
         this.p_nimi = p_nimi;
     }
 
-    public void setÜksus(int üksus) {
+    public void setÜksus(String üksus) {
         this.üksus = üksus;
     }
 
@@ -67,12 +67,13 @@ public class Isik {
 
     @Override
     public String toString() {
-        return "Isik{" +
-                " isikukood = " + isikukood +
-                ", eesnimi = '" + e_nimi + '\'' +
-                ", perenimi = '" + p_nimi + '\'' +
-                ", üksus = " + üksus +
-                ", amet = '" + amet + '\'' +
-                '}';
+        return  amet + " \t|\t " + e_nimi + " " + p_nimi + " \t|\t "  + isikukood;
+    }
+    public int compareTo(Isik võrreldav) {
+            if (Integer.parseInt(üksus) < Integer.parseInt(võrreldav.üksus))
+                return -1; // negatiivne arv näitab, et this on väiksem kui võrreldav
+            if (Integer.parseInt(üksus) > Integer.parseInt(võrreldav.üksus))
+                return 1; // positiivne arv näitab, et this on suurem kui võrreldav
+            return 0; // null tähendab, et mõlemad on võrdsed
     }
 }
