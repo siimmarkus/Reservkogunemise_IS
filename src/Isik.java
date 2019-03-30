@@ -5,12 +5,24 @@ public class Isik {
     private int üksus;
     private String amet;
 
+    private int pükse;
+    private int särke;
+    private int soblesid;
+    private int ferntšisid;
+    private int magamiskotte;
+
     public Isik(String isikukood, java.lang.String e_nimi, java.lang.String p_nimi, int üksus, java.lang.String amet) {
         this.isikukood = isikukood;
         this.e_nimi = e_nimi;
         this.p_nimi = p_nimi;
         this.üksus = üksus;
         this.amet = amet;
+
+        if (amet.equals("Laskur")){
+            this.pükse = 2;
+
+        }
+
     }
 
     public String getIsikukood() {

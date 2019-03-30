@@ -1,0 +1,11 @@
+isikuandmed.txt
+isikukood, e_nimi, p_nimi, üksus, amet
+
+varustus.txt
+üksuse_id, püksid, sobled, frentšid, särgid, magamiskotid
+
+üksus.txt
+amet, isikukood, pükse, särke...
+
+relvad.txt
+isikukood, relva_nr, relva_nimi

@@ -2,6 +2,11 @@ public class Üksus {
     private int id;
     private String nimi;
     private String kompanii;
+    private int pükse;
+    private int särke;
+    private int soblesid;
+    private int ferntšisid;
+    private int magamiskotte;
 
     public Üksus(int id, String nimi, String kompanii) {
         this.id = id;
