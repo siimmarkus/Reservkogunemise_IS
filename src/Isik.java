@@ -67,7 +67,7 @@ public class Isik implements Comparable<Isik> {
 
     @Override
     public String toString() {
-        return  amet + " \t|\t " + e_nimi + " " + p_nimi + " \t|\t "  + isikukood;
+        return  amet + " \t|\t " + e_nimi + " " + p_nimi + " \t\t|\t "  + isikukood;
     }
     public int compareTo(Isik võrreldav) {
             if (Integer.parseInt(üksus) < Integer.parseInt(võrreldav.üksus))

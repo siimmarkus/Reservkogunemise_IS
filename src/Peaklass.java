@@ -4,21 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Peaklass {
-    private static List<Isik> isikuteAndmebaas;
-    private static List<Üksus> üksusteAndmebaas;
-    private static HashMap<String, String> hashÜksused;
 
-    public static List<Isik> getIsikuteAndmebaas() {
-        return isikuteAndmebaas;
-    }
 
-    public static List<Üksus> getÜksusteAndmebaas() {
-        return üksusteAndmebaas;
-    }
 
-    public static HashMap<String, String> getHashÜksused() {
-        return hashÜksused;
-    }
 
     //Tagastab true, kui antud idkoodiga isik on juba isikud listis.
     public static boolean kontrolliIsik(String idkood, List<Isik> isikud){
@@ -29,16 +17,10 @@ public class Peaklass {
         }
         return false;
     }
-    private static void looAndmebaasid() throws IOException {
-        isikuteAndmebaas = Sisselugeja.iskuteLugeja("isikuandmed.txt");
-        üksusteAndmebaas = Sisselugeja.üksusteAndmebaasiLugeja("üksused.txt");
-        hashÜksused = Sisselugeja.üksusteHashMapiLugeja("üksused.txt");
-
-    }
 
     public static void main(String[] args) throws IOException {
-        looAndmebaasid();
-        Aruanne.lisaInimene(new Isik("3902984829", "Brunhilde", "Jones", "22", "kapten"));
+        Andmebaasid.looAndmebaasid();
+        Aruanne.lisaInimene(new Isik("38508172103", "Bruno", "Jones", "22", "kapten"));
         Aruanne.lisaInimene(new Isik("3902982821", "Aadam", "Kloun", "68", "auto"));
         Aruanne.lisaInimene(new Isik("3902984232", "Kiire", "Auto", "68", "auto"));
 
@@ -56,14 +38,14 @@ public class Peaklass {
                     System.out.println("Palun sisestage oma isikukood: ");
                     String isikukood = input.next();
                     System.out.println("sisestasite isikukoodi " + isikukood);
-                    if (kontrolliIsik(isikukood, isikuteAndmebaas)){
+                    if (kontrolliIsik(isikukood, Andmebaasid.getIsikuteAndmebaas())){
                         // TODO: 29/03/2019 registreeri isik
                         System.out.println("Registreerisin isiku");
                     }
                     else System.out.println("Sisestatud isikukoodiga inimest ei leidu meie andmebaasis.");
                     break;
 
-                case 2: // TODO: 29/03/2019 Väljasta registreerunud isikutega auranne ;
+                case 2:
                     Aruanne.kirjutaAruanne();
                     System.out.println("Säh sulle tabelit");
                     break;

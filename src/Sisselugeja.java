@@ -1,10 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Sisselugeja {
     public static List<Isik> iskuteLugeja(String failinimi) throws IOException {
@@ -44,6 +41,28 @@ public class Sisselugeja {
         }
 
         return üksused;
+    }
+
+    public static HashMap<String, List<String>> relvadeHashMapiLugeja(String failinimi) throws IOException {
+        HashMap<String, List<String>> relvad = new HashMap<>();
+
+        try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
+            while (sc.hasNextLine()){
+                String[] rida = sc.nextLine().split(";");
+                if (relvad.get(rida[0]) != null){
+                    System.out.println("Leidsin teise relva");
+                    List<String> relvanimed = relvad.get(rida[0]);
+                    relvanimed.add(rida[2]);
+                    relvad.put(rida[0], relvanimed);
+                }
+                else {
+                    List<String> relvanimed = new ArrayList<>();
+                    relvanimed.add(rida[2]);
+                    relvad.put(rida[0], relvanimed);
+                }
+            }
+        }
+        return relvad;
     }
 
     public static List<Varustus> varustuseLugeja(String failinimi) throws IOException {

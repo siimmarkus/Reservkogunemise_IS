@@ -14,18 +14,22 @@ public class Aruanne {
             if (formeerunud.size() == 0) { //
                 System.out.println("Ühtegi inimest ei ole registreeritud.");
             }
-            else{
-                pw.println("Amet\t|\tTäisnimi\t|\tIsikukood");
-                pw.println("\t==================\t" + Peaklass.getHashÜksused().get(formeerunud.get(0).getÜksus()) + "\t==================");
-                pw.println(formeerunud.get(0));
+            else{ // Et ei tekiks viga, siis lisan esimese registreerunu manuaalselt
 
+                pw.println("\t==================\t" + Andmebaasid.getHashÜksused().get(formeerunud.get(0).getÜksus()) + "\t==================");
+                pw.print(formeerunud.get(0));
+                pw.println("\t|\t" + Andmebaasid.getHashRelvad().get(formeerunud.get(0).getIsikukood()));
+
+                // Kui registreerunud inimeste arv on suurem kui 0, siis kirjuta faili üksuste pealkirjade alla inimeste andmed
                 for (int i = 1; i < formeerunud.size(); i++) {
 
                     if (formeerunud.get(i - 1).getÜksus().equals(formeerunud.get(i).getÜksus()) ) {
-                        pw.println(formeerunud.get(i));
+                        pw.print(formeerunud.get(i));
+                        pw.println("\t|\t" + Andmebaasid.getHashRelvad().get(formeerunud.get(i).getIsikukood()));
                     } else {
-                        pw.println("\n\t==================\t" + Peaklass.getHashÜksused().get(formeerunud.get(i).getÜksus()) + "\t==================");
-                        pw.println(formeerunud.get(i));
+                        pw.println("\r\n\t==================\t" + Andmebaasid.getHashÜksused().get(formeerunud.get(i).getÜksus()) + "\t==================");
+                        pw.print(formeerunud.get(i));
+                        pw.println("\t|\t" + Andmebaasid.getHashRelvad().get(formeerunud.get(i).getIsikukood()));
                     }
                 }
                 pw.flush();
