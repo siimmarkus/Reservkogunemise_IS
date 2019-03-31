@@ -65,8 +65,10 @@ public class Sisselugeja {
         return relvad;
     }
 
-    public static List<Varustus> varustuseLugeja(String failinimi) throws IOException {
-        List<Varustus> varustus = new ArrayList<>();
+    /* Hashmapid on palju parem mõte, pmst võime need listiks lugejad vast ära kaotada, hetkel jätan igaks juhuks alles.
+
+    public static List<Ladu> varustuseLugeja(String failinimi) throws IOException {
+        List<Ladu> varustus = new ArrayList<>();
 
         try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
             while (sc.hasNextLine()){
@@ -75,7 +77,25 @@ public class Sisselugeja {
                 for (int i = 0; i < rida.length; i++) {
                     uusrida[i] = Integer.parseInt(rida[i]);
                 }
-                varustus.add(new Varustus(uusrida[0],uusrida[1],uusrida[2],uusrida[3],uusrida[4],uusrida[5]));
+                varustus.add(new Ladu(uusrida[0],uusrida[1],uusrida[2],uusrida[3],uusrida[4],uusrida[5]));
+
+            }
+        }
+
+        return varustus;
+    }*/
+
+    public static HashMap<Integer, Ladu> ladudeHashMapiLugeja(String failinimi) throws IOException {
+        HashMap<Integer, Ladu> varustus = new HashMap<>();
+
+        try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
+            while (sc.hasNextLine()){
+                String[] rida = sc.nextLine().split(";");
+                int[] uusrida = new int[rida.length];
+                for (int i = 0; i < rida.length; i++) {
+                    uusrida[i] = Integer.parseInt(rida[i]);
+                }
+                varustus.put(uusrida[0], new Ladu(uusrida[0],uusrida[1],uusrida[2],uusrida[3],uusrida[4],uusrida[5]));
 
             }
         }

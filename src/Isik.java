@@ -18,10 +18,14 @@ public class Isik implements Comparable<Isik> {
         this.üksus = üksus;
         this.amet = amet;
 
-        if (amet.equals("Laskur")){
-            this.pükse = 2;
 
-        }
+
+    }
+
+    private void annaVarustus(){
+        Ladu ladu = Andmebaasid.getHashLaod().get(üksus);
+        this.pükse = 2;
+        ladu.setPüksid(ladu.getPüksid() - pükse);
 
     }
 
