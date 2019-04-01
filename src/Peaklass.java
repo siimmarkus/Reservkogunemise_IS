@@ -18,6 +18,18 @@ public class Peaklass {
         return false;
     }
 
+    private static boolean registreeriIsik(){
+        Scanner sisend = new Scanner(System.in);
+        System.out.println("Palun sisestage oma isikukood: ");
+        String isikukood = sisend.next();
+        System.out.println("sisestasite isikukoodi " + isikukood);
+        if(Andmebaasid.getHashIsikud().containsKey(isikukood)){
+            System.out.println("Selle isikukoodiga inimene on juba andmebaasis olemas!");
+            return false;
+        }
+
+    }
+
     public static void main(String[] args) throws IOException {
         Andmebaasid.looAndmebaasid();
         Aruanne.lisaInimene(new Isik("38508172103", "Bruno", "Jones", "22", "kapten"));
@@ -35,9 +47,7 @@ public class Peaklass {
             int valik = input.nextInt();
             switch (valik){
                 case 1:
-                    System.out.println("Palun sisestage oma isikukood: ");
-                    String isikukood = input.next();
-                    System.out.println("sisestasite isikukoodi " + isikukood);
+
                     if (kontrolliIsik(isikukood, Andmebaasid.getIsikuteAndmebaas())){
                         // TODO: 29/03/2019 registreeri isik
                         System.out.println("Registreerisin isiku");

@@ -17,6 +17,19 @@ public class Sisselugeja {
         return isikud;
     }
 
+    public static HashMap<String, Isik> iskuteHashMapiLugeja(String failinimi) throws IOException {
+        HashMap<String, Isik> isikud = new HashMap<>();
+
+        try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
+            while (sc.hasNextLine()){
+                String[] rida = sc.nextLine().split(";");
+                isikud.put(rida[0],new Isik(rida[0],rida[1],rida[2], rida[3],rida[4]));
+            }
+        }
+
+        return isikud;
+    }
+
     public static List<Üksus> üksusteAndmebaasiLugeja(String failinimi) throws IOException {
         List<Üksus> üksused = new ArrayList<>();
 
