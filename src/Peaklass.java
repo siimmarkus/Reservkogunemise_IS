@@ -5,28 +5,43 @@ import java.util.Scanner;
 
 public class Peaklass {
 
-
-
-
-    //Tagastab true, kui antud idkoodiga isik on juba isikud listis.
-    public static boolean kontrolliIsik(String idkood, List<Isik> isikud){
-        for (Isik isik : isikud) {
-            if (isik.getIsikukood().equals(idkood)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean registreeriIsik(){
+    //Tegeleb isiku registreerimise ning andmebaasi ja aruande puhvrisse lisamisega.
+    private static void registreeriIsik(){
         Scanner sisend = new Scanner(System.in);
-        System.out.println("Palun sisestage oma isikukood: ");
-        String isikukood = sisend.next();
-        System.out.println("sisestasite isikukoodi " + isikukood);
+        String isikukood;
+        String e_nimi;
+        String p_nimi;
+        String üksus;
+        String amet;
+
+        //Isikukood
+        System.out.println("Sisestage isikukood: ");
+        isikukood = sisend.next();
+
+        //Kui sisestatud isikukoodiga inimene on juba registreeritud
         if(Andmebaasid.getHashIsikud().containsKey(isikukood)){
-            System.out.println("Selle isikukoodiga inimene on juba andmebaasis olemas!");
-            return false;
+            System.out.println("Isikukoodiga " + isikukood + " inimene on juba andmebaasis olemas!");
+            System.out.println("Kas Te soovite uut isikut registreerida? (y/n)");
+            String otsus = sisend.next();
+            if (otsus.toLowerCase().equals("y")){
+                registreeriIsik();
+            }
+            return;
         }
+
+        //Ülejäänud info
+        System.out.println("Sisestage isiku eesnimi");
+        e_nimi = sisend.next();
+        System.out.println("Sisestage isiku perenimi");
+        p_nimi = sisend.next();
+        System.out.println("Sisestage isiku üksus");
+        üksus = sisend.next();
+        System.out.println("Sisestage isiku amet");
+        amet = sisend.next();
+        Isik registreeritav = new Isik(isikukood, e_nimi, p_nimi, üksus, amet);
+        Andmebaasid.lisaIsik(isikukood, registreeritav);
+        Aruanne.lisaInimene(registreeritav);
+        System.out.println("Registreeriti isik: " + registreeritav.toString());
 
     }
 
@@ -41,42 +56,34 @@ public class Peaklass {
         System.out.println("Mida soovite teha?");
         Scanner input = new Scanner(System.in);
         while (true){
-            System.out.println("\nLisada isik formeerimiseks (1)");
+            System.out.println("\nVäljuda programmist (0)");
+            System.out.println("Lisada isik formeerimiseks (1)");
             System.out.println("Printida senise formeerumise aruanne (2)");
-            System.out.println("Väljuda programmist (3)");
+            System.out.println("Väljastada kõik isikud andmebaasis (3)");
             int valik = input.nextInt();
             switch (valik){
+                case 0: System.exit(0);
                 case 1:
-
-                    if (kontrolliIsik(isikukood, Andmebaasid.getIsikuteAndmebaas())){
-                        // TODO: 29/03/2019 registreeri isik
-                        System.out.println("Registreerisin isiku");
-                    }
-                    else System.out.println("Sisestatud isikukoodiga inimest ei leidu meie andmebaasis.");
+                    registreeriIsik();
                     break;
-
                 case 2:
                     Aruanne.kirjutaAruanne();
                     System.out.println("Säh sulle tabelit");
                     break;
-                case 3: System.exit(0);
+                case 3:
+                    System.out.println("Registreeritud isikud: ");
+                    HashMap<String, Isik> isikud = Andmebaasid.getHashIsikud();
+                    for (String võti: isikud.keySet()){
+                        System.out.println(Andmebaasid.getHashIsikud().get(võti).toString());
+                    }
+                    break;
                 default:
-                    System.out.println("something broken");
+                    System.out.println("Valikut: " + valik + " ei eksisteeri.");
             }
         }
 
 
 
-        /*
-        for (Isik isik:isikud) {
-            System.out.println(isik.toString());
-        }
-        for (Üksus üksus : üksused) {
-            System.out.println(üksus.toString());
-        }
-        */
-
-        //System.out.println("Isik on juba andmebaasis: " + kontrolliIsik("39102305432", isikud));
 
 
     }

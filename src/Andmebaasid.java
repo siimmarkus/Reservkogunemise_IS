@@ -32,11 +32,16 @@ public class Andmebaasid {
         return hashIsikud;
     }
 
+    public static void lisaIsik(String võti, Isik isik){
+        hashIsikud.put(võti, isik);
+    }
+
     public static void looAndmebaasid() throws IOException {
         isikuteAndmebaas = Sisselugeja.iskuteLugeja("isikuandmed.txt");
         üksusteAndmebaas = Sisselugeja.üksusteAndmebaasiLugeja("üksused.txt");
         hashÜksused = Sisselugeja.üksusteHashMapiLugeja("üksused.txt");
         hashRelvad = Sisselugeja.relvadeHashMapiLugeja("relvad.txt");
         hashLaod = Sisselugeja.ladudeHashMapiLugeja("laod.txt");
+        hashIsikud = Sisselugeja.iskuteHashMapiLugeja("isikuandmed.txt");
     }
 }
