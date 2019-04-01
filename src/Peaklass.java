@@ -51,7 +51,7 @@ public class Peaklass {
         Aruanne.lisaInimene(new Isik("3902982821", "Aadam", "Kloun", "68", "auto"));
         Aruanne.lisaInimene(new Isik("3902984232", "Kiire", "Auto", "68", "auto"));
 
-// Suhtlus kasutajaga terminali kaudu
+        // Suhtlus kasutajaga terminali kaudu
         System.out.println("Teretulemast kasutama KV uut innovaatilist formeerumistarkvara.");
         System.out.println("Mida soovite teha?");
         Scanner input = new Scanner(System.in);
@@ -60,6 +60,8 @@ public class Peaklass {
             System.out.println("Lisada isik formeerimiseks (1)");
             System.out.println("Printida senise formeerumise aruanne (2)");
             System.out.println("Väljastada kõik isikud andmebaasis (3)");
+            System.out.println("Väljastada kõikide ladude seisud (4)");
+
             int valik = input.nextInt();
             switch (valik){
                 case 0: System.exit(0);
@@ -75,6 +77,13 @@ public class Peaklass {
                     HashMap<String, Isik> isikud = Andmebaasid.getHashIsikud();
                     for (String võti: isikud.keySet()){
                         System.out.println(Andmebaasid.getHashIsikud().get(võti).toString());
+                    }
+                    break;
+                case 4:
+                    System.out.println("Laod: ");
+                    HashMap<String, Ladu> laod = Andmebaasid.getHashLaod();
+                    for (String võti: laod.keySet()){
+                        System.out.println(laod.get(võti).toString());
                     }
                     break;
                 default:

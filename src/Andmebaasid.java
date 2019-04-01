@@ -7,7 +7,7 @@ public class Andmebaasid {
     private static List<Üksus> üksusteAndmebaas;
     private static HashMap<String, String> hashÜksused;
     private static HashMap<String, List<String>> hashRelvad;
-    private static HashMap<Integer, Ladu> hashLaod;
+    private static HashMap<String, Ladu> hashLaod;
     private static HashMap<String, Isik> hashIsikud;
 
     public static List<Isik> getIsikuteAndmebaas() {
@@ -26,7 +26,7 @@ public class Andmebaasid {
         return hashRelvad;
     }
 
-    public static HashMap<Integer, Ladu> getHashLaod() { return hashLaod; }
+    public static HashMap<String, Ladu> getHashLaod() { return hashLaod; }
 
     public static HashMap<String, Isik> getHashIsikud() {
         return hashIsikud;
@@ -37,11 +37,9 @@ public class Andmebaasid {
     }
 
     public static void looAndmebaasid() throws IOException {
-        isikuteAndmebaas = Sisselugeja.iskuteLugeja("isikuandmed.txt");
-        üksusteAndmebaas = Sisselugeja.üksusteAndmebaasiLugeja("üksused.txt");
+        hashLaod = Sisselugeja.ladudeHashMapiLugeja("laod.txt");
         hashÜksused = Sisselugeja.üksusteHashMapiLugeja("üksused.txt");
         hashRelvad = Sisselugeja.relvadeHashMapiLugeja("relvad.txt");
-        hashLaod = Sisselugeja.ladudeHashMapiLugeja("laod.txt");
         hashIsikud = Sisselugeja.iskuteHashMapiLugeja("isikuandmed.txt");
     }
 }

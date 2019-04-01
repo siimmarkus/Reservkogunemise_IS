@@ -1,7 +1,7 @@
-isikuandmed.txt
+﻿isikuandmed.txt
 isikukood, e_nimi, p_nimi, üksus, amet
 
-varustus.txt
+laod.txt
 üksuse_id, püksid, sobled, frentšid, särgid, magamiskotid
 
 üksus.txt

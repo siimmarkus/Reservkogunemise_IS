@@ -4,18 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Sisselugeja {
-    public static List<Isik> iskuteLugeja(String failinimi) throws IOException {
-        List<Isik> isikud = new ArrayList<>();
-
-        try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
-            while (sc.hasNextLine()){
-                String[] rida = sc.nextLine().split(";");
-                isikud.add(new Isik(rida[0],rida[1],rida[2], rida[3],rida[4]));
-            }
-        }
-
-        return isikud;
-    }
 
     public static HashMap<String, Isik> iskuteHashMapiLugeja(String failinimi) throws IOException {
         HashMap<String, Isik> isikud = new HashMap<>();
@@ -28,19 +16,6 @@ public class Sisselugeja {
         }
 
         return isikud;
-    }
-
-    public static List<Üksus> üksusteAndmebaasiLugeja(String failinimi) throws IOException {
-        List<Üksus> üksused = new ArrayList<>();
-
-        try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
-            while (sc.hasNextLine()){
-                String[] rida = sc.nextLine().split(";");
-                üksused.add(new Üksus(Integer.parseInt(rida[0]),rida[1],rida[2]));
-            }
-        }
-
-        return üksused;
     }
 
     public static HashMap<String, String> üksusteHashMapiLugeja(String failinimi) throws IOException {
@@ -78,10 +53,8 @@ public class Sisselugeja {
         return relvad;
     }
 
-    /* Hashmapid on palju parem mõte, pmst võime need listiks lugejad vast ära kaotada, hetkel jätan igaks juhuks alles.
-
-    public static List<Ladu> varustuseLugeja(String failinimi) throws IOException {
-        List<Ladu> varustus = new ArrayList<>();
+    public static HashMap<String, Ladu> ladudeHashMapiLugeja(String failinimi) throws IOException {
+        HashMap<String, Ladu> varustus = new HashMap<>();
 
         try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
             while (sc.hasNextLine()){
@@ -90,25 +63,7 @@ public class Sisselugeja {
                 for (int i = 0; i < rida.length; i++) {
                     uusrida[i] = Integer.parseInt(rida[i]);
                 }
-                varustus.add(new Ladu(uusrida[0],uusrida[1],uusrida[2],uusrida[3],uusrida[4],uusrida[5]));
-
-            }
-        }
-
-        return varustus;
-    }*/
-
-    public static HashMap<Integer, Ladu> ladudeHashMapiLugeja(String failinimi) throws IOException {
-        HashMap<Integer, Ladu> varustus = new HashMap<>();
-
-        try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
-            while (sc.hasNextLine()){
-                String[] rida = sc.nextLine().split(";");
-                int[] uusrida = new int[rida.length];
-                for (int i = 0; i < rida.length; i++) {
-                    uusrida[i] = Integer.parseInt(rida[i]);
-                }
-                varustus.put(uusrida[0], new Ladu(uusrida[0],uusrida[1],uusrida[2],uusrida[3],uusrida[4],uusrida[5]));
+                varustus.put(rida[0], new Ladu(rida[0],uusrida[1],uusrida[2],uusrida[3],uusrida[4],uusrida[5]));
 
             }
         }

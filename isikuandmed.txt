@@ -1,4 +1,4 @@
-39609204221;Hain;Luud;22;Autojuht-Sidemees
+﻿39609204221;Hain;Luud;22;Autojuht-Sidemees
 39102305432;Meelis;Raamat;21;Laskur
 38811130295;Kvaliteedimärgi;Ekspert;103;Tulejuht
 39512318574;Madis;Märter;44;Autojuht

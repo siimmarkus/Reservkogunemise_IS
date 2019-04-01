@@ -1,12 +1,12 @@
 public class Ladu {
-    private int üksus;
+    private String üksus;
     private int püksid;
     private int sobled;
     private int frentšid;
     private int särgid;
     private int magamiskotid;
 
-    public Ladu(int üksus, int püksid, int sobled, int frentšid, int särgid, int magamiskotid) {
+    public Ladu(String üksus, int püksid, int sobled, int frentšid, int särgid, int magamiskotid) {
         this.üksus = üksus;
         this.püksid = püksid;
         this.sobled = sobled;
@@ -15,11 +15,11 @@ public class Ladu {
         this.magamiskotid = magamiskotid;
     }
 
-    public int getÜksus() {
+    public String getÜksus() {
         return üksus;
     }
 
-    public void setÜksus(int üksus) {
+    public void setÜksus(String üksus) {
         this.üksus = üksus;
     }
 

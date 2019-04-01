@@ -17,16 +17,24 @@ public class Isik implements Comparable<Isik> {
         this.p_nimi = p_nimi;
         this.üksus = üksus;
         this.amet = amet;
-
+        annaVarustus();
 
 
     }
 
     private void annaVarustus(){
         Ladu ladu = Andmebaasid.getHashLaod().get(üksus);
+
         this.pükse = 2;
         ladu.setPüksid(ladu.getPüksid() - pükse);
-
+        this.särke = 2;
+        ladu.setSärgid(ladu.getSärgid() - särke);
+        this.soblesid = 2;
+        ladu.setSobled(ladu.getSobled() - soblesid);
+        this.ferntšisid = 2;
+        ladu.setFrentšid(ladu.getFrentšid() - ferntšisid);
+        this.magamiskotte = 1;
+        ladu.setMagamiskotid(ladu.getMagamiskotid() - magamiskotte);
     }
 
     public String getIsikukood() {
