@@ -1,7 +1,5 @@
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Peaklass {
 
@@ -52,13 +50,21 @@ public class Peaklass {
         Aruanne.lisaInimene(new Isik("3902984232", "Kiire", "Auto", "68", "auto"));
 
         // Suhtlus kasutajaga terminali kaudu
-        System.out.println("Teretulemast kasutama KV uut innovaatilist formeerumistarkvara.");
-        System.out.println("Mida soovite teha?");
+        String[] tervitused = {"Tere. Kasutate KV tarkvara. Kogu source-code on asutusesiseseks kasutuseks",
+                "Teretulemast kasutama KV uut innovaatilist formeerumistarkvara.",
+                "Nii nad tapsidki meie Ferdinandi."};
+
+        // Random kasutus :)
+        Random juhutervitus = new Random();
+        int juhuslik = juhutervitus.nextInt(tervitused.length);
+        System.out.println(tervitused[juhuslik]);
+        System.out.println("\nMida soovite teha?");
         Scanner input = new Scanner(System.in);
+
         while (true){
             System.out.println("\nVäljuda programmist (0)");
             System.out.println("Lisada isik formeerimiseks (1)");
-            System.out.println("Printida senise formeerumise aruanne (2)");
+            System.out.println("Trükkida senise formeerumise aruanne (2)");
             System.out.println("Väljastada kõik isikud andmebaasis (3)");
             System.out.println("Väljastada kõikide ladude seisud (4)");
 
@@ -70,7 +76,7 @@ public class Peaklass {
                     break;
                 case 2:
                     Aruanne.kirjutaAruanne();
-                    System.out.println("Säh sulle tabelit");
+                    System.out.println("Valmis.");
                     break;
                 case 3:
                     System.out.println("Registreeritud isikud: ");
@@ -90,10 +96,5 @@ public class Peaklass {
                     System.out.println("Valikut: " + valik + " ei eksisteeri.");
             }
         }
-
-
-
-
-
     }
 }
