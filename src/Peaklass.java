@@ -61,6 +61,9 @@ public class Peaklass {
         System.out.println("\nMida soovite teha?");
         Scanner input = new Scanner(System.in);
 
+
+        System.out.println(Andmebaasid.getHashÜksused().keySet());
+
         while (true){
             System.out.println("\nVäljuda programmist (0)");
             System.out.println("Lisada isik formeerimiseks (1)");

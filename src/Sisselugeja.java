@@ -24,7 +24,7 @@ public class Sisselugeja {
         try(Scanner sc = new Scanner(new File(failinimi), StandardCharsets.UTF_8)){
             while (sc.hasNextLine()){
                 String[] rida = sc.nextLine().split(";");
-                üksused.put(rida[0], rida[1] + " " + rida[2]);
+                üksused.put(rida[0].replace("\n",""), rida[1]+ " " + rida[2]);
             }
         }
 

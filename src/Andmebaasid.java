@@ -3,20 +3,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Andmebaasid {
-    private static List<Isik> isikuteAndmebaas;
-    private static List<Üksus> üksusteAndmebaas;
     private static HashMap<String, String> hashÜksused;
     private static HashMap<String, List<String>> hashRelvad;
     private static HashMap<String, Ladu> hashLaod;
     private static HashMap<String, Isik> hashIsikud;
 
-    public static List<Isik> getIsikuteAndmebaas() {
-        return isikuteAndmebaas;
-    }
-
-    public static List<Üksus> getÜksusteAndmebaas() {
-        return üksusteAndmebaas;
-    }
 
     public static HashMap<String, String> getHashÜksused() {
         return hashÜksused;

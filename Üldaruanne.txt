@@ -1,0 +1,9 @@
+	==================	1.Brigaad Sidekompanii	==================
+a 	|	 a a 		|	 a	|	null
+
+	==================	1.Brigaad TTKo	==================
+kapten 	|	 Bruno Jones 		|	 38508172103	|	[AK 4]
+
+	==================	2.Brigaad Jalavägi	==================
+auto 	|	 Aadam Kloun 		|	 3902982821	|	null
+auto 	|	 Kiire Auto 		|	 3902984232	|	null
