@@ -15,35 +15,94 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.util.Collections;
-
 public class GUI extends Application {
 
-    public VBox registreerimisAken(){
-        VBox aken = new VBox();
-        aken.setSpacing(10);
+    public BorderPane registreerimisAken(){
+        BorderPane jaotus = new BorderPane();
 
-        Text tekst = new Text("Uue isiku registreerimine");
-        FlowPane isikukood = new FlowPane(new Text("Isikukood: "), new TextField());
-        FlowPane eesnimi = new FlowPane(new Text("Eesnimi: "), new TextField());
-        FlowPane perenimi = new FlowPane(new Text("Perenimi: "), new TextField());
-        FlowPane üksus = new FlowPane(new Text("Üksus: "), new TextField());
-        FlowPane amet = new FlowPane(new Text("Amet: "), new TextField());
-
+        //==============================================================================================================
+        /**
+         * Juhendav tekst akna ülevar ääres.
+         */
+        Text infoTekst = new Text("Uue isiku registreerimine\n");
+        infoTekst.setTextAlignment(TextAlignment.CENTER);
 
 
-        aken.getChildren().addAll(tekst, isikukood);
+        //==============================================================================================================
+        /**
+         * Infoväljad iga sisestatava väärtuse jaoks.
+         */
+        VBox väljadeNimed = new VBox();
+        väljadeNimed.setSpacing(22);
+        väljadeNimed.getChildren().addAll(new Text("Isikukood: "), new Text("Eesnimi: "), new Text("Perenimi: "),
+                new Text("Üksus: "), new Text("Amet: "));
 
-        return aken;
+
+        //==============================================================================================================
+        /**
+         * Tekstiväljad info sisestamiseks
+         */
+        VBox tekstiVäljad = new VBox();
+        tekstiVäljad.setSpacing(10);
+        TextField isikukoodiVäli = new TextField();
+        isikukoodiVäli.setPromptText("39906250288");
+        isikukoodiVäli.setMaxWidth(200);
+
+        TextField eesnimeVäli = new TextField();
+        eesnimeVäli.setPromptText("Toomas");
+        eesnimeVäli.setMaxWidth(300);
+
+        TextField perenimeVäli = new TextField();
+        perenimeVäli.setPromptText("Tamm");
+        perenimeVäli.setMaxWidth(300);
+
+        TextField üksuseVäli = new TextField();
+        üksuseVäli.setPromptText("21");
+        üksuseVäli.setMaxWidth(50);
+
+        TextField ametiVäli = new TextField();
+        ametiVäli.setPromptText("Autojuht");
+        ametiVäli.setMaxWidth(200);
+
+        tekstiVäljad.getChildren().addAll(isikukoodiVäli, eesnimeVäli, perenimeVäli, üksuseVäli, ametiVäli);
+
+        //==============================================================================================================
+        /**
+         * Registreerimisnupp
+         */
+        Button registreerimisNupp = new Button("Registreeri");
+        registreerimisNupp.setDisable(false);
+        väljadeNimed.getChildren().add(registreerimisNupp);
+
+
+
+
+        //==============================================================================================================
+
+
+
+        //Registreerimisnupu paigutus
+
+        jaotus.setTop(infoTekst);
+        jaotus.setLeft(väljadeNimed);
+        jaotus.setCenter(tekstiVäljad);
+
+
+
+
+        //aken.getChildren().add(jaotus);
+
+        return jaotus;
     }
 
     public Group ladudeAken(){
@@ -134,7 +193,7 @@ public class GUI extends Application {
 
         // stseeni loomine ja näitamine
         Scene stseen1 = new Scene(piir, 1000, 500, Color.SNOW);
-        peaLava.setTitle("Sündmused"); //SDojasd
+        peaLava.setTitle("Kaitseväe infosüsteem");
         peaLava.setResizable(false);
         peaLava.setScene(stseen1);
         peaLava.show();
