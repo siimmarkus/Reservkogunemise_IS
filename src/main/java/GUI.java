@@ -132,12 +132,9 @@ public class GUI extends Application {
         piir.setLeft(list);
 
 
-
-
-
         // stseeni loomine ja näitamine
         Scene stseen1 = new Scene(piir, 1000, 500, Color.SNOW);
-        peaLava.setTitle("Sündmused");
+        peaLava.setTitle("Sündmused"); //SDojasd
         peaLava.setResizable(false);
         peaLava.setScene(stseen1);
         peaLava.show();
