@@ -15,15 +15,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.util.Collections;
 
 public class GUI extends Application {
 
@@ -34,7 +33,7 @@ public class GUI extends Application {
         /**
          * Juhendav tekst akna ülevar ääres.
          */
-        Text infoTekst = new Text("Uue isiku registreerimine\n");
+        Text infoTekst = new Text(" Uue isiku registreerimine\n");
         infoTekst.setTextAlignment(TextAlignment.CENTER);
 
 
@@ -44,8 +43,8 @@ public class GUI extends Application {
          */
         VBox väljadeNimed = new VBox();
         väljadeNimed.setSpacing(22);
-        väljadeNimed.getChildren().addAll(new Text("Isikukood: "), new Text("Eesnimi: "), new Text("Perenimi: "),
-                new Text("Üksus: "), new Text("Amet: "));
+        väljadeNimed.getChildren().addAll(new Text(" Isikukood: "), new Text(" Eesnimi: "), new Text(" Perenimi: "),
+                new Text(" Üksus: "), new Text(" Amet: "));
 
 
         //==============================================================================================================
@@ -55,16 +54,16 @@ public class GUI extends Application {
         VBox tekstiVäljad = new VBox();
         tekstiVäljad.setSpacing(10);
         TextField isikukoodiVäli = new TextField();
-        isikukoodiVäli.setPromptText("39906250288");
-        isikukoodiVäli.setMaxWidth(200);
+        isikukoodiVäli.setPromptText("39906257092");
+        isikukoodiVäli.setMaxWidth(90);
 
         TextField eesnimeVäli = new TextField();
         eesnimeVäli.setPromptText("Toomas");
-        eesnimeVäli.setMaxWidth(300);
+        eesnimeVäli.setMaxWidth(200);
 
         TextField perenimeVäli = new TextField();
         perenimeVäli.setPromptText("Tamm");
-        perenimeVäli.setMaxWidth(300);
+        perenimeVäli.setMaxWidth(200);
 
         TextField üksuseVäli = new TextField();
         üksuseVäli.setPromptText("21");
