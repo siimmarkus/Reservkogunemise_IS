@@ -17,11 +17,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.util.Collections;
 
 public class GUI extends Application {
 
@@ -51,6 +54,36 @@ public class GUI extends Application {
 
     public Group aruandeAken(){
         Group aken = new Group();
+        VBox aruandeRead = new VBox();
+
+        Collections.sort(Aruanne.formeerunud);
+        if (Aruanne.formeerunud.size() > 0){
+            Text üksus = new Text(Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(0).getÜksus()));
+            aruandeRead.getChildren().add(üksus);
+
+            for (int i = 0; i < Aruanne.formeerunud.size()-1; i++) {
+                HBox reaSisu = new HBox();
+                if (Aruanne.formeerunud.get(i).getÜksus().equals(Aruanne.formeerunud.get(i+1).getÜksus())){
+                    Text isikukood = new Text(Aruanne.formeerunud.get(i).getIsikukood());
+                    Text nimi = new Text(Aruanne.formeerunud.get(i).getE_nimi() + " " +  Aruanne.formeerunud.get(i).getP_nimi());
+                    Text amet = new Text(Aruanne.formeerunud.get(i).getAmet());
+                    Text relvad = new Text(Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()).toString());
+                    reaSisu.getChildren().addAll(isikukood, nimi, amet, relvad);
+                    aruandeRead.getChildren().add(reaSisu);
+                }
+                else {
+                    Text isikukood = new Text(Aruanne.formeerunud.get(i).getIsikukood());
+                    Text nimi = new Text(Aruanne.formeerunud.get(i).getE_nimi() + " " +  Aruanne.formeerunud.get(i).getP_nimi());
+                    Text amet = new Text(Aruanne.formeerunud.get(i).getAmet());
+                    Text relvad = new Text(Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()).toString());
+                    reaSisu.getChildren().addAll(isikukood, nimi, amet, relvad);
+                    aruandeRead.getChildren().add(reaSisu);
+                    üksus = new Text(Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(i+1).getÜksus()));
+                    aruandeRead.getChildren().add(üksus);
+                }
+            }
+
+        }
         //todo: (kuvada aruande preview?). Nupp aruande väljastamiseks.
         return aken;
     }

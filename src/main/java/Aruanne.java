@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -6,9 +7,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Aruanne {
-    private static List<Isik> formeerunud = new ArrayList<>(); // mälu seniks kuni inimesi pole veel faili kirjutatud
+    public static List<Isik> formeerunud = new ArrayList<>(); // mälu seniks kuni inimesi pole veel faili kirjutatud
 
-    public static void kirjutaAruanne() throws FileNotFoundException, UnsupportedEncodingException {
+    public static void kirjutaAruanne() throws IOException {
         Collections.sort(formeerunud);
         try (java.io.PrintWriter pw = new java.io.PrintWriter("Üldaruanne.txt", StandardCharsets.UTF_8)) {
 
