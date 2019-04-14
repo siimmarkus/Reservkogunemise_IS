@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +10,7 @@ public class Aruanne {
 
     public static void kirjutaAruanne() throws FileNotFoundException, UnsupportedEncodingException {
         Collections.sort(formeerunud);
-        try (java.io.PrintWriter pw = new java.io.PrintWriter("Üldaruanne.txt", "UTF-8")) {
+        try (java.io.PrintWriter pw = new java.io.PrintWriter("Üldaruanne.txt", StandardCharsets.UTF_8)) {
 
             if (formeerunud.size() == 0) { //
                 System.out.println("Ühtegi inimest ei ole registreeritud.");

@@ -1,5 +1,5 @@
 	==================	1.Brigaad Sidekompanii	==================
-a 	|	 a a 		|	 a	|	null
+Autojuht 	|	 Siim Marvet 		|	 39906250288	|	null
 
 	==================	1.Brigaad TTKo	==================
 kapten 	|	 Bruno Jones 		|	 38508172103	|	[AK 4]

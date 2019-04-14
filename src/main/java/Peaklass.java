@@ -34,6 +34,15 @@ public class Peaklass {
         p_nimi = sisend.next();
         System.out.println("Sisestage isiku üksus");
         üksus = sisend.next();
+        if(!Andmebaasid.getHashÜksused().containsKey(üksus)){
+            System.out.println("Sellise numbriga üksust ei eksisteeri.");
+            System.out.println("Vali üks järgnevatest üksustest: " + Andmebaasid.getHashÜksused().keySet());
+            üksus = sisend.next();
+            if(!Andmebaasid.getHashÜksused().containsKey(üksus)){
+                System.out.println("Valisid taaskord mitte-eksisteeriva üksuse");
+                return;
+            }
+        }
         System.out.println("Sisestage isiku amet");
         amet = sisend.next();
         Isik registreeritav = new Isik(isikukood, e_nimi, p_nimi, üksus, amet);
@@ -58,13 +67,12 @@ public class Peaklass {
         Random juhutervitus = new Random();
         int juhuslik = juhutervitus.nextInt(tervitused.length);
         System.out.println(tervitused[juhuslik]);
-        System.out.println("\nMida soovite teha?");
         Scanner input = new Scanner(System.in);
 
 
-        System.out.println(Andmebaasid.getHashÜksused().keySet());
 
         while (true){
+            System.out.println("\nMida soovite teha?");
             System.out.println("\nVäljuda programmist (0)");
             System.out.println("Lisada isik formeerimiseks (1)");
             System.out.println("Trükkida senise formeerumise aruanne (2)");

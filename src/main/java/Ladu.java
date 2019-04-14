@@ -15,13 +15,7 @@ public class Ladu {
         this.magamiskotid = magamiskotid;
     }
 
-    public String getÜksus() {
-        return üksus;
-    }
 
-    public void setÜksus(String üksus) {
-        this.üksus = üksus;
-    }
 
     public int getPüksid() {
         return püksid;
