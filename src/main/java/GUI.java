@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -50,6 +51,7 @@ public class GUI extends Application {
          */
         VBox tekstiVäljad = new VBox();
         tekstiVäljad.setSpacing(10);
+
         TextField isikukoodiVäli = new TextField();
         isikukoodiVäli.setPromptText("39906257092");
         isikukoodiVäli.setMaxWidth(90);
@@ -70,15 +72,40 @@ public class GUI extends Application {
         ametiVäli.setPromptText("Autojuht");
         ametiVäli.setMaxWidth(200);
 
-        tekstiVäljad.getChildren().addAll(isikukoodiVäli, eesnimeVäli, perenimeVäli, üksuseVäli, ametiVäli);
+        TextField[] tekstiVäljadeMassiiv = {isikukoodiVäli, eesnimeVäli, perenimeVäli, üksuseVäli, ametiVäli};
+        tekstiVäljad.getChildren().addAll(tekstiVäljadeMassiiv);
 
         //==============================================================================================================
         /**
          * Registreerimisnupp
          */
+        Text registreerimisTagasiside = new Text();
+
         Button registreerimisNupp = new Button("Registreeri");
         registreerimisNupp.setDisable(false);
-        väljadeNimed.getChildren().add(registreerimisNupp);
+        registreerimisNupp.setOnMouseClicked(event -> {
+            boolean võimalik = true;
+            for (TextField laps: tekstiVäljadeMassiiv) {
+                if (laps.getText().equals("")){
+                    võimalik = false;
+                    break;
+                }
+            }
+            if (!Andmebaasid.getHashÜksused().containsKey(üksuseVäli.getText())){
+                võimalik = false;
+                registreerimisTagasiside.setText("Sellise numbriga üksust ei leidu.");
+            }
+
+            if (võimalik){
+                Isik registreeritav = new Isik(isikukoodiVäli.getText(), eesnimeVäli.getText(),
+                        perenimeVäli.getText(), üksuseVäli.getText(), ametiVäli.getText());
+                Andmebaasid.lisaIsik(isikukoodiVäli.getText(), registreeritav);
+                Aruanne.lisaInimene(registreeritav);
+                registreerimisTagasiside.setText("Edukalt registreeritud: " + registreeritav.toString());
+            }
+        });
+
+        väljadeNimed.getChildren().addAll(registreerimisNupp);
 
 
 
@@ -92,6 +119,7 @@ public class GUI extends Application {
         jaotus.setTop(infoTekst);
         jaotus.setLeft(väljadeNimed);
         jaotus.setCenter(tekstiVäljad);
+        jaotus.setBottom(registreerimisTagasiside);
 
 
 
@@ -139,6 +167,7 @@ public class GUI extends Application {
             }
 
         }
+        aken.getChildren().addAll(aruandeRead);
         //todo: (kuvada aruande preview?). Nupp aruande väljastamiseks.
         return aken;
     }
@@ -161,28 +190,26 @@ public class GUI extends Application {
                 "Ladude seisud",
                 "Aruanne");
         list.setItems(items);
-        list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
-                switch (newValue) {
-                    case "Avaleht":
-                        piir.setCenter(avaleht);
-                        break;
-                    case "Registreerimine":
-                        piir.setCenter(registreerimisAken());
-                        break;
-                    case "Ladude seisud":
-                        piir.setCenter(ladudeAken());
-                        break;
-                    case "Aruanne":
-                        piir.setCenter(aruandeAken());
-                        break;
-                    default: piir.setCenter(avaleht);
-                }
-
-
-
-
+        list.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+            switch (newValue) {
+                case "Avaleht":
+                    piir.setCenter(avaleht);
+                    break;
+                case "Registreerimine":
+                    piir.setCenter(registreerimisAken());
+                    break;
+                case "Ladude seisud":
+                    piir.setCenter(ladudeAken());
+                    break;
+                case "Aruanne":
+                    piir.setCenter(aruandeAken());
+                    break;
+                default: piir.setCenter(avaleht);
             }
+
+
+
+
         });
         piir.setLeft(list);
 
@@ -195,7 +222,8 @@ public class GUI extends Application {
         peaLava.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        Andmebaasid.looAndmebaasid();
         launch(args);
     }
 }
