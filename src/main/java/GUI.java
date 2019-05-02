@@ -24,33 +24,33 @@ import java.util.Collections;
 
 public class GUI extends Application {
 
-    public BorderPane registreerimisAken(){
-        BorderPane jaotus = new BorderPane();
+    public VBox registreerimisAken(){
+        VBox jaotus = new VBox();
+        jaotus.setSpacing(20);
+        GridPane grid = new GridPane();
+        grid.setVgap(10);
+        grid.setHgap(10);
 
         //==============================================================================================================
         /**
          * Juhendav tekst akna ülevar ääres.
          */
         Text infoTekst = new Text(" Uue isiku registreerimine\n");
-        infoTekst.setTextAlignment(TextAlignment.CENTER);
 
 
         //==============================================================================================================
         /**
          * Infoväljad iga sisestatava väärtuse jaoks.
          */
-        VBox väljadeNimed = new VBox();
-        väljadeNimed.setSpacing(22);
-        väljadeNimed.getChildren().addAll(new Text(" Isikukood: "), new Text(" Eesnimi: "), new Text(" Perenimi: "),
-                new Text(" Üksus: "), new Text(" Amet: "));
+        Node[] väljadeNimedMassiiv = {new Text(" Isikukood: "), new Text(" Eesnimi: "), new Text(" Perenimi: "),
+                new Text(" Üksus: "), new Text(" Amet: ")};
 
 
         //==============================================================================================================
         /**
          * Tekstiväljad info sisestamiseks
          */
-        VBox tekstiVäljad = new VBox();
-        tekstiVäljad.setSpacing(10);
+
 
         TextField isikukoodiVäli = new TextField();
         isikukoodiVäli.setPromptText("39906257092");
@@ -73,11 +73,10 @@ public class GUI extends Application {
         ametiVäli.setMaxWidth(200);
 
         TextField[] tekstiVäljadeMassiiv = {isikukoodiVäli, eesnimeVäli, perenimeVäli, üksuseVäli, ametiVäli};
-        tekstiVäljad.getChildren().addAll(tekstiVäljadeMassiiv);
 
         //==============================================================================================================
         /**
-         * Registreerimisnupp
+         * Registreerimisnupp ja registreerimistingimuste kontroll(unikaalne isikukood, )
          */
         Text registreerimisTagasiside = new Text();
 
@@ -88,7 +87,8 @@ public class GUI extends Application {
             for (TextField laps: tekstiVäljadeMassiiv) {
                 if (laps.getText().equals("")){
                     võimalik = false;
-                    break;
+                    registreerimisTagasiside.setText("Mõni lahter on veel täitmata.");
+                    return;
                 }
             }
             if (!Andmebaasid.getHashÜksused().containsKey(üksuseVäli.getText())){
@@ -96,36 +96,36 @@ public class GUI extends Application {
                 registreerimisTagasiside.setText("Sellise numbriga üksust ei leidu.");
             }
 
+            if (Andmebaasid.getHashIsikud().containsKey(isikukoodiVäli.getText())){
+                võimalik = false;
+                registreerimisTagasiside.setText("Selle isikukoodiga isik on juba registreeritud.");
+            }
+
             if (võimalik){
                 Isik registreeritav = new Isik(isikukoodiVäli.getText(), eesnimeVäli.getText(),
                         perenimeVäli.getText(), üksuseVäli.getText(), ametiVäli.getText());
                 Andmebaasid.lisaIsik(isikukoodiVäli.getText(), registreeritav);
                 Aruanne.lisaInimene(registreeritav);
-                registreerimisTagasiside.setText("Edukalt registreeritud: " + registreeritav.toString());
+                registreerimisTagasiside.setText("Edukalt registreeritud: " + eesnimeVäli.getText() + " " + perenimeVäli.getText());
             }
         });
 
-        väljadeNimed.getChildren().addAll(registreerimisNupp);
 
-
+        //==============================================================================================================
+        /**
+         * Lisan kõik väljade nimed ja tekstiväljad GridPane'le
+         */
+        for (int i = 0; i < väljadeNimedMassiiv.length; i++) {
+            grid.add(väljadeNimedMassiiv[i], 0,i);
+            grid.add(tekstiVäljadeMassiiv[i], 1,i);
+        }
+        grid.add(registreerimisNupp, 1, väljadeNimedMassiiv.length);
 
 
         //==============================================================================================================
 
 
-
-        //Registreerimisnupu paigutus
-
-        jaotus.setTop(infoTekst);
-        jaotus.setLeft(väljadeNimed);
-        jaotus.setCenter(tekstiVäljad);
-        jaotus.setBottom(registreerimisTagasiside);
-
-
-
-
-        //aken.getChildren().add(jaotus);
-
+        jaotus.getChildren().addAll(infoTekst, grid, registreerimisNupp, registreerimisTagasiside);
         return jaotus;
     }
 
