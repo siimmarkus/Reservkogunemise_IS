@@ -130,15 +130,13 @@ public class GUI extends Application {
 
         VBox vbox = new VBox();
         GridPane grid = new GridPane();
-        //grid.setGridLinesVisible(true);
-        grid.setVgap(10);
-        grid.setHgap(50);
+        grid.setGridLinesVisible(true);
+
 
         vbox.setPadding(new Insets(40,0,0,40));
 
         Text pealkiri = new Text("Ladude hetkeseisud");
-        pealkiri.setFont(new Font(20));
-        pealkiri.setUnderline(true);
+        pealkiri.setFont(new Font(25));
         vbox.getChildren().add(pealkiri);
 
         Ladu[] laod = Andmebaasid.getHashLaod().values().toArray(Ladu[]::new);
@@ -146,19 +144,20 @@ public class GUI extends Application {
         for (int i = 0; i < laod.length; i++) {
             VBox üksLadu = new VBox();
             Ladu ladu = laod[i];
-            Text laonimi = new Text("\nÜksuse " + ladu.getÜksus() + " ladu");
-            laonimi.setFont(new Font(15));
-            laonimi.setUnderline(true);
+            Text laonimi = new Text("Üksuse " + ladu.getÜksus() + " ladu:");
+            laonimi.setFont(new Font(18));
+            //laonimi.setUnderline(true);
             üksLadu.getChildren().add(laonimi);
 
             Text[] väärtused = {
-                    new Text("  pükse: " + ladu.getPüksid()),
-                    new Text("  soblesid: " + ladu.getSobled()),
-                    new Text("  frentše: " + ladu.getFrentšid()),
-                    new Text("  särke: " + ladu.getSärgid()),
-                    new Text("  magamiskotte: " + ladu.getMagamiskotid() + "\n")
+                    new Text("\n      pükse: " + ladu.getPüksid()),
+                    new Text("      soblesid: " + ladu.getSobled()),
+                    new Text("      frentše: " + ladu.getFrentšid()),
+                    new Text("      särke: " + ladu.getSärgid()),
+                    new Text("      magamiskotte: " + ladu.getMagamiskotid())
             };
             üksLadu.getChildren().addAll(väärtused);
+            üksLadu.setPadding(new Insets(20,20,20,20));
             grid.add(üksLadu, i%3, i/3);
 
         }
