@@ -16,6 +16,9 @@ public class Ladu {
     }
 
 
+    public String getÜksus() {
+        return üksus;
+    }
 
     public int getPüksid() {
         return püksid;

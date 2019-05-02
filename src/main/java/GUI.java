@@ -1,24 +1,21 @@
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.util.Collections;
 
@@ -129,10 +126,44 @@ public class GUI extends Application {
         return jaotus;
     }
 
-    public Group ladudeAken(){
-        Group aken = new Group();
-        //todo: visuaalselt ladude seisud
-        return aken;
+    public VBox ladudeAken(){
+
+        VBox vbox = new VBox();
+        GridPane grid = new GridPane();
+        //grid.setGridLinesVisible(true);
+        grid.setVgap(10);
+        grid.setHgap(50);
+
+        vbox.setPadding(new Insets(40,0,0,40));
+
+        Text pealkiri = new Text("Ladude hetkeseisud");
+        pealkiri.setFont(new Font(20));
+        pealkiri.setUnderline(true);
+        vbox.getChildren().add(pealkiri);
+
+        Ladu[] laod = Andmebaasid.getHashLaod().values().toArray(Ladu[]::new);
+
+        for (int i = 0; i < laod.length; i++) {
+            VBox üksLadu = new VBox();
+            Ladu ladu = laod[i];
+            Text laonimi = new Text("\nÜksuse " + ladu.getÜksus() + " ladu");
+            laonimi.setFont(new Font(15));
+            laonimi.setUnderline(true);
+            üksLadu.getChildren().add(laonimi);
+
+            Text[] väärtused = {
+                    new Text("  pükse: " + ladu.getPüksid()),
+                    new Text("  soblesid: " + ladu.getSobled()),
+                    new Text("  frentše: " + ladu.getFrentšid()),
+                    new Text("  särke: " + ladu.getSärgid()),
+                    new Text("  magamiskotte: " + ladu.getMagamiskotid() + "\n")
+            };
+            üksLadu.getChildren().addAll(väärtused);
+            grid.add(üksLadu, i%3, i/3);
+
+        }
+        vbox.getChildren().add(grid);
+        return vbox;
     }
 
     public Group aruandeAken(){
@@ -180,7 +211,7 @@ public class GUI extends Application {
         avaleht.getChildren().addAll(tutvustus);
 
         //Siin peaks olema "avaleht", katsetamise ajal muudan
-        piir.setCenter(registreerimisAken());
+        piir.setCenter(ladudeAken());
 
         ListView<String> list = new ListView<String>();
         list.setMaxWidth(150);
