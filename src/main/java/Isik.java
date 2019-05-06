@@ -15,6 +15,9 @@ public class Isik implements Comparable<Isik> {
         this.isikukood = isikukood;
         this.e_nimi = e_nimi;
         this.p_nimi = p_nimi;
+        if (!Andmebaasid.getHashÜksused().containsKey(üksus)){
+            throw new mitteEksisteerivaÜksuseExeption("Üksust " + üksus + " ei ole andmebaasides olemas");
+        }
         this.üksus = üksus;
         this.amet = amet;
         annaVarustus();
@@ -22,6 +25,9 @@ public class Isik implements Comparable<Isik> {
 
     }
 
+    /**
+     * Isiku loomisel antakse talle laost teatav hulk varustust.
+     */
     private void annaVarustus(){
         Ladu ladu = Andmebaasid.getHashLaod().get(üksus);
 
@@ -81,11 +87,22 @@ public class Isik implements Comparable<Isik> {
     public String toString() {
         return  amet + " \t|\t " + e_nimi + " " + p_nimi + " \t\t|\t "  + isikukood;
     }
+
+    /**
+     * Isik objekte võrreldakse sorteerimisel nende üksuste järgi.
+     */
     public int compareTo(Isik võrreldav) {
             if (Integer.parseInt(üksus) < Integer.parseInt(võrreldav.üksus))
                 return -1; // negatiivne arv näitab, et this on väiksem kui võrreldav
             if (Integer.parseInt(üksus) > Integer.parseInt(võrreldav.üksus))
                 return 1; // positiivne arv näitab, et this on suurem kui võrreldav
             return 0; // null tähendab, et mõlemad on võrdsed
+    }
+}
+
+
+class mitteEksisteerivaÜksuseExeption extends RuntimeException{
+    public mitteEksisteerivaÜksuseExeption(String message) {
+        super(message);
     }
 }

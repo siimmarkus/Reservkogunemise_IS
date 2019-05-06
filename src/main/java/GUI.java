@@ -80,30 +80,26 @@ public class GUI extends Application {
         Button registreerimisNupp = new Button("Registreeri");
         registreerimisNupp.setDisable(false);
         registreerimisNupp.setOnMouseClicked(event -> {
-            boolean võimalik = true;
             for (TextField laps: tekstiVäljadeMassiiv) {
                 if (laps.getText().equals("")){
-                    võimalik = false;
                     registreerimisTagasiside.setText("Mõni lahter on veel täitmata.");
                     return;
                 }
             }
-            if (!Andmebaasid.getHashÜksused().containsKey(üksuseVäli.getText())){
-                võimalik = false;
-                registreerimisTagasiside.setText("Sellise numbriga üksust ei leidu.");
-            }
 
             if (Andmebaasid.getHashIsikud().containsKey(isikukoodiVäli.getText())){
-                võimalik = false;
                 registreerimisTagasiside.setText("Selle isikukoodiga isik on juba registreeritud.");
+                return;
             }
 
-            if (võimalik){
+            try{
                 Isik registreeritav = new Isik(isikukoodiVäli.getText(), eesnimeVäli.getText(),
                         perenimeVäli.getText(), üksuseVäli.getText(), ametiVäli.getText());
                 Andmebaasid.lisaIsik(isikukoodiVäli.getText(), registreeritav);
                 Aruanne.lisaInimene(registreeritav);
                 registreerimisTagasiside.setText("Edukalt registreeritud: " + eesnimeVäli.getText() + " " + perenimeVäli.getText());
+            } catch (mitteEksisteerivaÜksuseExeption e) {
+                registreerimisTagasiside.setText(e.getMessage());
             }
         });
 
@@ -174,8 +170,13 @@ public class GUI extends Application {
             Text üksus = new Text(Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(0).getÜksus()));
             aruandeRead.getChildren().add(üksus);
 
+
             for (int i = 0; i < Aruanne.formeerunud.size()-1; i++) {
                 HBox reaSisu = new HBox();
+                Isik formeerunu = Aruanne.formeerunud.get(i);
+
+
+
                 if (Aruanne.formeerunud.get(i).getÜksus().equals(Aruanne.formeerunud.get(i+1).getÜksus())){
                     Text isikukood = new Text(Aruanne.formeerunud.get(i).getIsikukood());
                     Text nimi = new Text(Aruanne.formeerunud.get(i).getE_nimi() + " " +  Aruanne.formeerunud.get(i).getP_nimi());
