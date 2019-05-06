@@ -15,6 +15,7 @@ public class Isik implements Comparable<Isik> {
         //Erind juba eksisteeriva isiku registreerimisel.
         //Not null kortroll, kuna andmebaaside sisselugemisel kasutatakse sama konstruktorit esimese inimese registreerimiseks
         //(olematu andmebaasi küsimisel annab nullpointeri).
+
         if (Andmebaasid.getHashIsikud() != null && Andmebaasid.getHashIsikud().containsKey(isikukood)){
             throw new isikJubaRegistreeritudExeption("Isikukoodiga '" + isikukood + "' inimene on juba registreeritud");
         }

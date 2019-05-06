@@ -22,6 +22,7 @@ import java.util.Collections;
 
 public class GUI extends Application {
 
+
     public String registreeri(String isikukood, String eesnimi, String perenimi, String üksus, String amet){
         String[] andmed = {isikukood, eesnimi, perenimi, üksus, amet};
         //Kontrollib, kas kõik lahtrid on täidetud.
