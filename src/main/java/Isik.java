@@ -12,9 +12,16 @@ public class Isik implements Comparable<Isik> {
     private int magamiskotte;
 
     public Isik(String isikukood, java.lang.String e_nimi, java.lang.String p_nimi, String üksus, java.lang.String amet) {
+        //Erind juba eksisteeriva isiku registreerimisel.
+        //Not null kortroll, kuna andmebaaside sisselugemisel kasutatakse sama konstruktorit esimese inimese registreerimiseks
+        //(olematu andmebaasi küsimisel annab nullpointeri).
+        if (Andmebaasid.getHashIsikud() != null && Andmebaasid.getHashIsikud().containsKey(isikukood)){
+            throw new isikJubaRegistreeritudExeption("Isikukoodiga '" + isikukood + "' inimene on juba registreeritud");
+        }
         this.isikukood = isikukood;
         this.e_nimi = e_nimi;
         this.p_nimi = p_nimi;
+        //Erind inimese lisamisel, kui antud numbriga üksust pole olemas. Probleem tekiks varustuse andmisel.
         if (!Andmebaasid.getHashÜksused().containsKey(üksus)){
             throw new mitteEksisteerivaÜksuseExeption("Üksust " + üksus + " ei ole andmebaasides olemas");
         }
@@ -103,6 +110,12 @@ public class Isik implements Comparable<Isik> {
 
 class mitteEksisteerivaÜksuseExeption extends RuntimeException{
     public mitteEksisteerivaÜksuseExeption(String message) {
+        super(message);
+    }
+}
+
+class isikJubaRegistreeritudExeption extends RuntimeException{
+    public isikJubaRegistreeritudExeption(String message) {
         super(message);
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,6 +22,26 @@ import java.util.Collections;
 
 public class GUI extends Application {
 
+    public String registreeri(String isikukood, String eesnimi, String perenimi, String üksus, String amet){
+        String[] andmed = {isikukood, eesnimi, perenimi, üksus, amet};
+        //Kontrollib, kas kõik lahtrid on täidetud.
+        for (String laps: andmed) {
+            if (laps.equals("")){
+                return "Mõni lahter on veel täitmata.";
+            }
+        }
+
+        try{
+            Isik registreeritav = new Isik(isikukood, eesnimi,
+                    perenimi, üksus, amet);
+            Andmebaasid.lisaIsik(isikukood, registreeritav);
+            Aruanne.lisaInimene(registreeritav);
+            return "Edukalt registreeritud: " + eesnimi + " " + perenimi;
+        } catch (mitteEksisteerivaÜksuseExeption | isikJubaRegistreeritudExeption e) {
+            return e.getMessage();
+        }
+    }
+
     public VBox registreerimisAken(){
         VBox jaotus = new VBox();
         jaotus.setSpacing(20);
@@ -30,9 +51,10 @@ public class GUI extends Application {
 
         //==============================================================================================================
         /**
-         * Juhendav tekst akna ülevar ääres.
+         * Juhendav tekst akna ülevar ääres. Ja registreerimise tagasiside.
          */
         Text infoTekst = new Text(" Uue isiku registreerimine\n");
+        Text registreerimisTagasiside = new Text();
 
 
         //==============================================================================================================
@@ -51,7 +73,7 @@ public class GUI extends Application {
 
         TextField isikukoodiVäli = new TextField();
         isikukoodiVäli.setPromptText("39906257092");
-        isikukoodiVäli.setMaxWidth(90);
+        isikukoodiVäli.setMaxWidth(110);
 
         TextField eesnimeVäli = new TextField();
         eesnimeVäli.setPromptText("Toomas");
@@ -70,37 +92,26 @@ public class GUI extends Application {
         ametiVäli.setMaxWidth(200);
 
         TextField[] tekstiVäljadeMassiiv = {isikukoodiVäli, eesnimeVäli, perenimeVäli, üksuseVäli, ametiVäli};
+        //Suvalises tekstikastis enteri vajutamisel toimub registreerimine.
+        for (TextField väli:tekstiVäljadeMassiiv) {
+            väli.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER){
+                    registreerimisTagasiside.setText(registreeri(isikukoodiVäli.getText(), eesnimeVäli.getText(),
+                            perenimeVäli.getText(), üksuseVäli.getText(), ametiVäli.getText()));
+                }
+            });
+        }
 
         //==============================================================================================================
         /**
-         * Registreerimisnupp ja registreerimistingimuste kontroll(unikaalne isikukood, )
+         * Registreerimisnupp
          */
-        Text registreerimisTagasiside = new Text();
 
         Button registreerimisNupp = new Button("Registreeri");
         registreerimisNupp.setDisable(false);
         registreerimisNupp.setOnMouseClicked(event -> {
-            for (TextField laps: tekstiVäljadeMassiiv) {
-                if (laps.getText().equals("")){
-                    registreerimisTagasiside.setText("Mõni lahter on veel täitmata.");
-                    return;
-                }
-            }
-
-            if (Andmebaasid.getHashIsikud().containsKey(isikukoodiVäli.getText())){
-                registreerimisTagasiside.setText("Selle isikukoodiga isik on juba registreeritud.");
-                return;
-            }
-
-            try{
-                Isik registreeritav = new Isik(isikukoodiVäli.getText(), eesnimeVäli.getText(),
-                        perenimeVäli.getText(), üksuseVäli.getText(), ametiVäli.getText());
-                Andmebaasid.lisaIsik(isikukoodiVäli.getText(), registreeritav);
-                Aruanne.lisaInimene(registreeritav);
-                registreerimisTagasiside.setText("Edukalt registreeritud: " + eesnimeVäli.getText() + " " + perenimeVäli.getText());
-            } catch (mitteEksisteerivaÜksuseExeption e) {
-                registreerimisTagasiside.setText(e.getMessage());
-            }
+            registreerimisTagasiside.setText(registreeri(isikukoodiVäli.getText(), eesnimeVäli.getText(),
+                    perenimeVäli.getText(), üksuseVäli.getText(), ametiVäli.getText()));
         });
 
 
