@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Collections;
 
 public class GUI extends Application {
@@ -173,50 +174,67 @@ public class GUI extends Application {
         return vbox;
     }
 
-    public Group aruandeAken(){
+    public Group aruandeAken() throws IOException {
         Group aken = new Group();
         VBox aruandeRead = new VBox();
+        // TODO: 06/05/2019 Positsioneerida tekstiread
+        //aken.setLayoutX(0);
+        //aruandeRead.setLayoutY(0);
 
         Collections.sort(Aruanne.formeerunud);
         if (Aruanne.formeerunud.size() > 0){
             Text üksus = new Text(Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(0).getÜksus()));
             aruandeRead.getChildren().add(üksus);
 
-
-            for (int i = 0; i < Aruanne.formeerunud.size()-1; i++) {
+            int j = 1;
+            Text järjek;
+            Text isikukood;
+            Text nimi;
+            Text amet;
+            Text relvad;
+            for (int i = 0; i < Aruanne.formeerunud.size(); i++) {
                 HBox reaSisu = new HBox();
-                Isik formeerunu = Aruanne.formeerunud.get(i);
 
+                järjek = new Text(j+". ");
+                isikukood = new Text(Aruanne.formeerunud.get(i).getIsikukood());
+                nimi = new Text(" " + Aruanne.formeerunud.get(i).getE_nimi() + " " +  Aruanne.formeerunud.get(i).getP_nimi());
+                amet = new Text(" " + Aruanne.formeerunud.get(i).getAmet());
 
-
-                if (Aruanne.formeerunud.get(i).getÜksus().equals(Aruanne.formeerunud.get(i+1).getÜksus())){
-                    Text isikukood = new Text(Aruanne.formeerunud.get(i).getIsikukood());
-                    Text nimi = new Text(Aruanne.formeerunud.get(i).getE_nimi() + " " +  Aruanne.formeerunud.get(i).getP_nimi());
-                    Text amet = new Text(Aruanne.formeerunud.get(i).getAmet());
-                    Text relvad = new Text(Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()).toString());
-                    reaSisu.getChildren().addAll(isikukood, nimi, amet, relvad);
-                    aruandeRead.getChildren().add(reaSisu);
+                if (Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()) == null){
+                    relvad = new Text(" -");
                 }
                 else {
-                    Text isikukood = new Text(Aruanne.formeerunud.get(i).getIsikukood());
-                    Text nimi = new Text(Aruanne.formeerunud.get(i).getE_nimi() + " " +  Aruanne.formeerunud.get(i).getP_nimi());
-                    Text amet = new Text(Aruanne.formeerunud.get(i).getAmet());
-                    Text relvad = new Text(Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()).toString());
-                    reaSisu.getChildren().addAll(isikukood, nimi, amet, relvad);
-                    aruandeRead.getChildren().add(reaSisu);
-                    üksus = new Text(Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(i+1).getÜksus()));
-                    aruandeRead.getChildren().add(üksus);
+                    relvad = new Text(Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()).toString());
+                }
+
+                reaSisu.getChildren().addAll(järjek, isikukood, nimi, amet, relvad);
+                aruandeRead.getChildren().add(reaSisu);
+                j++;
+                if (i < Aruanne.formeerunud.size()-1){
+                    if (!Aruanne.formeerunud.get(i).getÜksus().equals(Aruanne.formeerunud.get(i+1).getÜksus())){
+                        üksus = new Text(Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(i+1).getÜksus()));
+                        aruandeRead.getChildren().add(üksus);
+                        j = 1;
+                    }
                 }
             }
-
         }
+        Button trüki = new Button("Trüki");
+        trüki.setOnMouseClicked(event -> {
+            try {
+                Aruanne.kirjutaAruanne();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        aruandeRead.getChildren().add(trüki);
         aken.getChildren().addAll(aruandeRead);
-        //todo: (kuvada aruande preview?). Nupp aruande väljastamiseks.
         return aken;
     }
 
     @Override
-    public void start(Stage peaLava) {
+    public void start(Stage peaLava){
         BorderPane piir = new BorderPane();
         Group avaleht = new Group();
         Text tutvustus = new Text("Kaitseväe infosüsteemi GUI");
@@ -245,7 +263,11 @@ public class GUI extends Application {
                     piir.setCenter(ladudeAken());
                     break;
                 case "Aruanne":
-                    piir.setCenter(aruandeAken());
+                    try {
+                        piir.setCenter(aruandeAken());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default: piir.setCenter(avaleht);
             }
