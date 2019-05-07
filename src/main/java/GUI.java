@@ -174,12 +174,8 @@ public class GUI extends Application {
         return vbox;
     }
 
-    public Group aruandeAken() throws IOException {
-        Group aken = new Group();
+    public VBox aruandeAken() {
         VBox aruandeRead = new VBox();
-        // TODO: 06/05/2019 Positsioneerida tekstiread
-        //aken.setLayoutX(0);
-        //aruandeRead.setLayoutY(0);
 
         Collections.sort(Aruanne.formeerunud);
         if (Aruanne.formeerunud.size() > 0){
@@ -229,8 +225,7 @@ public class GUI extends Application {
         });
 
         aruandeRead.getChildren().add(trüki);
-        aken.getChildren().addAll(aruandeRead);
-        return aken;
+        return aruandeRead;
     }
 
     @Override
@@ -263,11 +258,7 @@ public class GUI extends Application {
                     piir.setCenter(ladudeAken());
                     break;
                 case "Aruanne":
-                    try {
-                        piir.setCenter(aruandeAken());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    piir.setCenter(aruandeAken());
                     break;
                 default: piir.setCenter(avaleht);
             }
