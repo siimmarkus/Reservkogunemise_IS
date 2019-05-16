@@ -1,2 +1,9 @@
 	==================	1.Brigaad Sidekompanii	==================
-asdp 	|	 asdkop plaksdokü 		|	 123123	|	null
+Autojuht 	|	 Siim Markus Marvet 		|	 39906250288	|	null
+Master Overclocker 	|	 Toomas Plank 		|	 39807589833	|	null
+
+	==================	1.Brigaad TTKo	==================
+Loengur 	|	 Marina Lepp 		|	 40098576922	|	null
+
+	==================	2.Brigaad Jalavägi	==================
+Reamees 	|	 Tõnu Tammar 		|	 39906250289	|	null

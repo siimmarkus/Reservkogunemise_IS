@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -174,43 +173,52 @@ public class GUI extends Application {
         return vbox;
     }
 
-    public VBox aruandeAken() {
+    public GridPane aruandeAken() {
+        registreeri("39906250288", "Siim Markus", "Marvet", "21", "Autojuht");
+        registreeri("39807589833", "Toomas", "Plank", "21", "Master Overclocker");
+        registreeri("40098576922", "Marina", "Lepp", "22", "Loengur");
+
+
+
         VBox aruandeRead = new VBox();
+        GridPane grid = new GridPane();
+        grid.setHgap(30);
+        grid.setVgap(5);
+        grid.setPadding(new Insets(40,0,0,40));
+        int rida = 2;
+        grid.add(new Text("Isikukood"), 1, 0);
+        grid.add(new Text("Nimi"),2,0);
+        grid.add(new Text("Amet"),3,0);
+        grid.add(new Text("Relvad"),4,0);
 
         Collections.sort(Aruanne.formeerunud);
         if (Aruanne.formeerunud.size() > 0){
-            Text üksus = new Text(Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(0).getÜksus()));
+            Text üksus = new Text("\n" + Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(0).getÜksus()));
             aruandeRead.getChildren().add(üksus);
 
+            grid.add(üksus, 2,1);
             int j = 1;
-            Text järjek;
-            Text isikukood;
-            Text nimi;
-            Text amet;
-            Text relvad;
             for (int i = 0; i < Aruanne.formeerunud.size(); i++) {
-                HBox reaSisu = new HBox();
-
-                järjek = new Text(j+". ");
-                isikukood = new Text(Aruanne.formeerunud.get(i).getIsikukood());
-                nimi = new Text(" " + Aruanne.formeerunud.get(i).getE_nimi() + " " +  Aruanne.formeerunud.get(i).getP_nimi());
-                amet = new Text(" " + Aruanne.formeerunud.get(i).getAmet());
-
                 if (Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()) == null){
-                    relvad = new Text(" -");
+                    grid.add(new Text(" -"),4,rida);
                 }
                 else {
-                    relvad = new Text(Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()).toString());
+                    grid.add(new Text(Andmebaasid.getHashRelvad().get(Aruanne.formeerunud.get(i).getIsikukood()).toString()),4,rida);
                 }
 
-                reaSisu.getChildren().addAll(järjek, isikukood, nimi, amet, relvad);
-                aruandeRead.getChildren().add(reaSisu);
+                grid.add(new Text(j+". "), 0, rida);
+                grid.add(new Text(Aruanne.formeerunud.get(i).getIsikukood()), 1, rida);
+                grid.add(new Text(" " + Aruanne.formeerunud.get(i).getE_nimi() + " " +  Aruanne.formeerunud.get(i).getP_nimi()),2,rida);
+                grid.add(new Text(" " + Aruanne.formeerunud.get(i).getAmet()),3,rida);
+
+                rida++;
                 j++;
                 if (i < Aruanne.formeerunud.size()-1){
                     if (!Aruanne.formeerunud.get(i).getÜksus().equals(Aruanne.formeerunud.get(i+1).getÜksus())){
-                        üksus = new Text(Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(i+1).getÜksus()));
-                        aruandeRead.getChildren().add(üksus);
+                        üksus = new Text("\n" + Andmebaasid.getHashÜksused().get(Aruanne.formeerunud.get(i+1).getÜksus()));
                         j = 1;
+                        grid.add(üksus,2,rida);
+                        rida++;
                     }
                 }
             }
@@ -224,8 +232,8 @@ public class GUI extends Application {
             }
         });
 
-        aruandeRead.getChildren().add(trüki);
-        return aruandeRead;
+        grid.add(trüki,1,rida);
+        return grid;
     }
 
     @Override
@@ -236,7 +244,7 @@ public class GUI extends Application {
         avaleht.getChildren().addAll(tutvustus);
 
         //Siin peaks olema "avaleht", katsetamise ajal muudan
-        piir.setCenter(ladudeAken());
+        piir.setCenter(avaleht);
 
         ListView<String> list = new ListView<String>();
         list.setMaxWidth(150);
@@ -271,9 +279,11 @@ public class GUI extends Application {
 
 
         // stseeni loomine ja näitamine
-        Scene stseen1 = new Scene(piir, 1000, 500, Color.SNOW);
+        Scene stseen1 = new Scene(piir, 800, 500, Color.SNOW);
+        peaLava.setMinWidth(800);
+        peaLava.setMinHeight(500);
         peaLava.setTitle("Kaitseväe infosüsteem");
-        peaLava.setResizable(false);
+        //peaLava.setResizable(false);
         peaLava.setScene(stseen1);
         peaLava.show();
     }
