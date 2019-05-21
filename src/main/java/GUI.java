@@ -8,12 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.PerspectiveTransform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -235,15 +238,50 @@ public class GUI extends Application {
         return grid;
     }
 
+    public Group avaaken(){
+        Group g = new Group();
+        PerspectiveTransform pt = new PerspectiveTransform();
+        pt.setUlx(100.0f);
+        pt.setUly(0.0f);
+        pt.setUrx(500.0f);
+        pt.setUry(40.0f);
+        pt.setLrx(500.0f);
+        pt.setLry(100.0f);
+        pt.setLlx(100.0f);
+        pt.setLly(150.0f);
+
+        g.setEffect(pt);
+        g.setCache(true);
+
+        Rectangle r = new Rectangle();
+        r.setX(10.0f);
+        r.setY(10.0f);
+        r.setWidth(500.0f);
+        r.setHeight(100.0f);
+        r.setFill(Color.BLUE);
+
+        Text t = new Text();
+        t.setX(20.0f);
+        t.setY(65.0f);
+        t.setText("Kaitseväe infosüsteemi GUI");
+        t.setFill(Color.RED);
+        t.setFont(Font.font(null, FontWeight.BOLD, 100));
+
+        g.getChildren().add(r);
+        g.getChildren().add(t);
+        return g;
+    }
+
     @Override
     public void start(Stage peaLava){
         BorderPane piir = new BorderPane();
         Group avaleht = new Group();
         Text tutvustus = new Text("Kaitseväe infosüsteemi GUI");
+        tutvustus.setFont(new Font("Comic Sans", 30));
         avaleht.getChildren().addAll(tutvustus);
 
-        //Siin peaks olema "avaleht", katsetamise ajal muudan
         piir.setCenter(avaleht);
+        //piir.setCenter(avaaken());
 
         ListView<String> list = new ListView<String>();
         list.setMaxWidth(150);
@@ -257,6 +295,7 @@ public class GUI extends Application {
             switch (newValue) {
                 case "Avaleht":
                     piir.setCenter(avaleht);
+                    //piir.setCenter(avaaken());
                     break;
                 case "Registreerimine":
                     piir.setCenter(registreerimisAken());
@@ -281,8 +320,8 @@ public class GUI extends Application {
         Scene stseen1 = new Scene(piir, 800, 500, Color.SNOW);
         peaLava.setMinWidth(800);
         peaLava.setMinHeight(500);
-        peaLava.setTitle("Kaitseväe infosüsteem");
         //peaLava.setResizable(false);
+        peaLava.setTitle("Kaitseväe infosüsteem");
         peaLava.setScene(stseen1);
         peaLava.show();
     }
